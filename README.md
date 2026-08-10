@@ -2,7 +2,7 @@
 
 This repository provides access to relevant files for a micro-credential integration developed by Dr. Dani Kirsch (Research Data Services Librarian, Oklahoma State University) and Dr. Jaina Agan (Assistant Professor of Biology, University of Central Oklahoma) for a Carpentries workshop series introducing R and RStudio. The workshop series utilizes the [Data Analysis and Visualization in R for Ecologists lesson](https://datacarpentry.github.io/R-ecology-lesson/) from Data Carpentry. It is taught over 3 sessions, each of which is 3 hours long.     
 
-The micro-credential itself is available through Credly as a [Basics of R and RStudio badge](https://www.credly.com/badges/857c3d55-d781-40a5-977e-34bd2eb3d488/linked_in_profile), thanks to the support and assistance of LX Studios at the University of Central Oklahoma (UCO). To obtain the micro-credential, learners must attend at 3 workshop sessions and complete 3 sets of practice problems and reflections.    
+The micro-credential itself is available through Credly as a [Basics of R and RStudio badge](https://www.credly.com/badges/857c3d55-d781-40a5-977e-34bd2eb3d488/linked_in_profile), thanks to the support and assistance of LX Studios at the University of Central Oklahoma (UCO). To obtain the micro-credential, learners must attend all 3 workshop sessions and complete 3 sets of practice problems and reflections.    
 
 ## Editable Markdown Files  
 
