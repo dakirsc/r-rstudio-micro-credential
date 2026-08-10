@@ -1,0 +1,138 @@
+---
+title: "Intro R Answer Key - Week 2"
+author: "Dr. Dani Kirsch & Dr. Jaina Agan"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+```{r packages, include = FALSE}
+library(ggplot2)
+```
+
+## Dataset Description
+
+For this week's optional practice problems, we have provided another dataset for you to use.  
+
+`midwest` is a dataset that’s available in R as part of the `ggplot2` pacakge, similar to the `complete_old` dataset we have been using from the `ratdat` package. The `midwest` dataset has demographic information for counties from several Midwest states from the 2000 U.S. Census.
+
+1. Write and execute the following code to read about where the dataset came from and what the variables are.  
+
+```{r data-descr, message = FALSE}
+?midwest
+```
+
+2. Use `str` to learn more about data types in the `midwest` dataset. Of the primary vector types we discussed in this week's workshop (character, integer, numeric, logical), which are represented in this dataset?  
+
+```{r str-midwest, echo=TRUE, include = TRUE, message = FALSE}
+str(midwest)
+```
+
+## Make a Fancy Boxplot
+
+Create a graph from the `midwest` data that compares population density between states. Follow the instructions below:  
+
+1. Compare `state` on the x-axis to `popdensity` on the y-axis.  
+2. Create a combined boxplot and scatter plot graph with the following features:  
+    * Use `geom_jitter` to create the scatter plot layer.  
+      * Set the color of the scatter plot data points to vary by the variable `state`.  
+      * Choose a new point shape (`shape = `). Shape is identified using integers, and these are some of your point shape options:    
+![point shape options in R][pch_img]
+      * Set a transparency level.  
+      * Make the point size larger (`size = `).  
+    * Use `geom_boxplot` to create the boxplot layer.  
+      * Remove the `fill` color.  
+      * Remove the `outlier.shape` to avoid double-plotting outliers.  
+3. Set a new theme (e.g., `theme_classic()`, `theme_bw()`)  
+4. Change the labels so that:  
+    * Plot title is "Midwest Population Demographics (2000)".  
+    * X-axis is "State".  
+    * Y-axis is "Population Density (person/unit area)".    
+5. Change other plot features using the `theme` function so that:  
+    * The size of the plot title text is 16 and the text face is **bold**.  
+    * The position of the legend is "none" (removes legend).  
+
+The graph you create should look similar to the following graph:  
+
+```{r fancy-boxplot, echo=TRUE, warning = FALSE}
+ggplot(data = midwest,
+       aes(x = state,
+           y = popdensity)) +
+  geom_jitter(aes(color = state),
+              shape = 18,
+              alpha = 0.6,
+              size = 3) +
+  geom_boxplot(outlier.shape = NA,
+               fill = NA) +
+  theme_bw() +
+  labs(title = "Midwest Population Demographics (2000)",
+       x = "State",
+       y = "Population Density (person/unit area)") +
+  theme(plot.title = element_text(size = 16,
+                             face = "bold"),
+        legend.position = "none")
+  
+```
+
+## Summary Statistics
+
+Compute the following calculations on the `midwest` dataset:  
+
+1. What is the minimum value of population density (`popdensity`)?  
+```{r min-pop-den, echo=TRUE}
+min(midwest$popdensity)
+```
+
+2. What is the maximum value of total population (`poptotal`)?  
+**Hint**: Use the function `max()`  
+```{r max-pop, echo=TRUE}
+max(midwest$poptotal)
+```
+
+3. What are the quantiles (25%, 50%, 75%) for the percent of a county's population that is college educated (`percollege`)?     
+```{r quant-college, echo=TRUE}
+quantile(midwest$percollege, prob = c(0.25,0.5,0.75))
+```
+
+4. What is the average number of adults per county (`popadults`)?  
+**Hint**: Use the function `mean()`  
+```{r avg-adult, echo=TRUE}
+mean(midwest$popadults)
+```
+
+## Sequences
+
+1. Create a sequence that runs from 8 to 85 at intervals of 7. Store this sequence as an object called `weird_seq`.  
+```{r weird-seq, echo=TRUE}
+weird_seq <- seq(from = 8, to = 85, by = 7)
+
+# print out list values
+weird_seq
+```
+2. Create a sequence that runs from 1900 to 2025 at intervals of 5. Store this sequence as an object called `year_seq`.  
+```{r year-seq, echo=TRUE}
+year_seq <- seq(from = 1900, to = 2025, by = 5)
+
+# print out list values
+year_seq
+```
+3. Create a sequence that is runs from 12 to 22 and has a length of 47 (47 total items in the sequence). Store this sequence as an object called `seq_length`.  
+```{r seq-rep, echo=TRUE}
+seq_length <- seq(from = 12, to = 22, length.out = 47)
+
+# print out list values
+seq_length
+```
+
+## Reflections
+
+1. What was the most challenging aspect of this week’s workshop? Were you able to overcome it? If not, what assistance do you need to continue working through it?  
+
+2. What was the most rewarding aspect of this week's workshop?  
+
+[pch_img]: pch.png "Point Shapes"

@@ -1,0 +1,235 @@
+---
+title: "Intro R Practice Problems - Week 3"
+author: "Dr. Dani Kirsch & Dr. Jaina Agan"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+## Downloading R and RStudio
+
+**For OSU learners**: since your access to TIGER was only temporary, you will need to download R and RStudio on your own computer if you want to continue working in this program. Please reach out to Dani ([danielle.kirsch@okstate.edu](mailto:danielle.kirsch@okstate.edu)) if you have any issues downloading R or RStudio!  
+
+**For UCO learners**: you may choose to download R and RStudio on your own computer, or continue to work in Buddy.   
+
+## Required Packages
+
+**For OSU learners**: since these practice problems are not taking place on TIGER, make sure you install the necessary packages on your personal version of R and RStudio.  
+
+**For UCO learners**: if you are continuing to use Buddy, you should already have `tidyverse` installed. If you are working on your personal versions of R and RStudio, you will also need to install the necessary packages if you do not have them installed already.  
+
+```{r install, include= TRUE, eval= FALSE}
+install.packages("tidyverse") # only if you do not have it installed
+```
+
+```{r packages, include= TRUE, message = FALSE, warning= FALSE}
+library(tidyverse) # load the package
+```
+
+## Dataset Description and Download
+
+For this week's optional practice problems, we have provided another dataset for you to use. This time, you will be downloading this file yourself and importing it into R.  
+
+This dataset is from Studying African Farmer-Led Irrigation (SAFI), a study that conducted interviews in Tanzania and Mozambique to assess farming and irrigation methods. [Learn more about the dataset variables](https://datacarpentry.github.io/r-socialsci/02-starting-with-data.html#presentation-of-the-safi-data). 
+
+1. [Download the dataset](https://github.com/datacarpentry/r-socialsci/blob/main/episodes/data/SAFI_clean.csv) (CSV)  
+    * This should open a page in GitHub. In the upper right hand corner, you should see a button with a download logo ![][github-download]  
+    * Click the button and select `Save as` to download the dataset  
+2. Pay attention to which folder you save the dataset in  
+
+## Importing the Dataset
+
+> If you are familiar with setting your working directory in R, use your preferred method to set your working directory to the folder that the dataset is in and skip to [Read in the Dataset](#import).  
+
+**For Buddy users**: You will need to import the file into Buddy using the import tool.   
+
+  * In the lower right panel, select the files tab and there will be a button along the top of the pane that will let you import a file into Buddy.  
+  * Make sure you are in the folder you want to import in before you do the import, otherwise you will need to move it where you want it to be in Buddy.  
+  * Our suggestion is to put it in the "data/cleaned/" folder we used for the other datasets during the workshop.  
+
+
+If you are **new** to R or have **have limited experience importing data**, you will need to set your working directory. We outline this process below.  
+
+### Set the Working Directory
+
+To avoid making things too complicated, the reason this process was so seamless using TIGER and Buddy is because all of our files were in the main "folder" on our "computer". If you are using your own computer and folders, we need to make sure R is paying attention to the correct location on your computer so it can find the files.  
+
+The simplest way to do this is to set the "Working Directory". This is the location on your computer that R focuses its attention on. You can do this programmatically through code if you know the exact path to the folder with your data in it. For example:  
+
+```
+setwd("C:/Users/username/OSU/Workshop_Files/Intro_R")
+```
+
+Alternatively, you can manually search for and set your working directory by going to the `Session` tab in RStudio >> `Set Working Directory` >> `Choose Directory` >> select the folder that contains your dataset.  
+
+![RStudio interface with the "Session" tab selected, showing how to set the working directory manually][setwd-img]  
+  
+*****  
+  
+
+You can check that your working directory is set to the correct location by running the following code:  
+```{r getwd, echo= TRUE, results = "hide"}
+getwd()
+```
+
+> Projects are an alternative to repeatedly setting the working directory. If you want to learn more, read about RStudio Projects in the [RStudio User Guide](https://docs.posit.co/ide/user/ide/guide/code/projects.html).  
+
+<a id="import"></a>
+
+### Read in the Dataset
+
+Now that your working directory is set, you should be able to see the dataset we downloaded if you go to the `Files` tab on the lower right of the RStudio interface. If you see a file called `SAFI_clean.csv`, everything is in order.  
+
+Import the dataset using the `read_csv()` function since it is a CSV file. Don't forget to put the file name in `" "` and include the file extension `.csv`. Store the dataset as an object called `survey_data` so that we can reference it in the next section.        
+
+```{r read-csv, echo= TRUE, results = "hide", message= FALSE}
+survey_data <- read_csv("SAFI_clean.csv")
+```
+
+## Practice Problems
+
+### Working with Data  
+
+In this section, you will be writing code to subset, transform, and create new variables from our `survey_data` dataset we imported.    
+
+1. **Subset the original dataset so that it includes the following components and store it as an object called `bigger_households`:**  
+    * Only the columns `village`, `no_membrs`, `respondent_wall_type`, and `rooms`  
+    * Only households that have at least 8 people living in them (`no_membrs`)  
+
+Your subset should look something like this:  
+
+```{r select-filter, echo= FALSE, message= FALSE}
+bigger_households <- survey_data %>% 
+  filter(no_membrs >= 8) %>% 
+  select(village, no_membrs, respondent_wall_type, rooms)
+
+bigger_households
+```
+
+2. **Subset the original dataset so that it includes the following components and store it as an object called `earth_households`:**  
+    * Only households where `respondent_wall_type` is either "muddaub", "burntbricks", and "sunbricks"  
+    * Contains a new column called `membrs_per_room` that contains a calculation of the number of household members per room (`no_membrs / rooms`)  
+    * Contains a new column called `wall_as_factor` that contains the same data as `respondent_wall_type` but converted into a factor instead  
+    * Change the order of factor levels to "sunbricks", "burntbricks" and "muddaub" (**Hint**: use `fct_relevel()`)  
+    * Select only the variables `no_membrs`, `rooms`, `membrs_per_room`, and `wall_as_factor`  
+
+Your subset should look something like this:  
+
+```{r filter-mutate, echo= FALSE, message= FALSE}
+earth_households <- survey_data %>% 
+  filter(respondent_wall_type %in% c("muddaub","burntbricks","sunbricks")) %>% 
+  mutate(membrs_per_room = no_membrs / rooms,
+         wall_as_factor = factor(respondent_wall_type),
+         wall_as_factor = fct_relevel(wall_as_factor,
+                                      c("sunbricks",
+                                        "burntbricks",
+                                        "muddaub"))) %>% 
+  select(no_membrs, rooms, membrs_per_room, wall_as_factor)
+
+earth_households
+```
+
+3. **Use the `group_by()` and `summarize()` approach to make the following comparisons between villages (`village`) from the original dataset (`survey_data`):**  
+    * Average years lived in the area (`years_liv`)  
+    * Number of households in each village (**Hint**: use `n()`)  
+
+Your comparison table should look like this:  
+
+```{r summarize, echo= FALSE, message= FALSE}
+survey_data %>% 
+  group_by(village) %>% 
+  summarize(mean_years_liv = mean(years_liv),
+            n = n())
+```
+
+### Putting It All Together  
+
+1. **Create a subset that includes the following components and store it as an object called `survey_50_years`:**  
+    * Use `str` to verify that `interview_date` is a **date** data type  
+    * Create a new variable called `year` by extracting the year from `interview_date`. (**Hint**: the function `year()` can extract the year from a date)  
+    * Convert `year` to a factor  
+    * Filter so that only households that have been living in the area for less than 50 years are represented  
+
+Your subset should look something like this:  
+
+  * **Note**: `<dttm>` is shorthand for "date-time" and is a specific type of date data type  
+
+```{r dates, echo= FALSE, message= FALSE}
+str(survey_data$interview_date)
+
+survey_50_years <- survey_data %>% 
+  mutate(year = year(interview_date),
+         year = factor(year)) %>% 
+  filter(years_liv < 50)
+
+survey_50_years
+```
+
+2. **Create a data visualization using the `survey_50_years` subset that has the following features:**  
+    * `year` (as a factor) on the x-axis and `no_membrs` on the y-axis  
+    * create a boxplot and remove the outlier points    
+    * create a `geom_jitter` layer to plot the raw data points and specify that  
+      * color should vary by `village` (but **only** for the jitter layer)  
+      * change the transparency to 0.7    
+      * change the point size to 2 (`size = `)    
+    * Add your own additional customizations. For example:  
+      * change the axis titles  
+      * change the color of the data points  
+      * change the graph theme  
+      * change the font size  
+    * Store this graph as an object called `years_graph`  
+
+Your exact customizations will vary, but the graph generally should look like the following:  
+
+```{r dates-plot, echo = FALSE}
+years_graph <- ggplot(data = survey_50_years,
+       mapping = aes(x = year,
+                     y = no_membrs)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(aes(color = village),
+              alpha = 0.7,
+              size = 2) +
+  theme_bw() +
+  labs(x = "Year Interviewed",
+       y = "Number of Household Members",
+       color = "Village",
+       title = "Newer Households (< 50 years)") +
+  scale_color_manual(values = c("purple","forestgreen","orange"))
+
+years_graph # print the graph in the Plots pane
+```
+
+3. **Export the subset `survey_50_years` and the graph you just made.** 
+    * The functions `ggsave` and `write_csv` will be useful here.  
+    * **Please attach these exported files with the rest of your microcredential submission!**  
+
+```{r exporting, include= FALSE}
+ggsave(filename = "years_graph.png",
+       plot = years_graph,
+       width = 6,
+       height = 4,
+       dpi = 300)
+
+write_csv(survey_50_years,
+          file = "new_house_survey_data.csv")
+```
+
+## Reflections
+
+1. What was the most challenging aspect of this week’s workshop? Were you able to overcome it? If not, what assistance do you need to continue working through it?  
+
+2. What was the most rewarding aspect of this week's workshop?  
+
+3. What are you most excited to try next in R?  
+
+## Microcredential Activity Submission
+
+> Submit your Week 3 R script file, your exported CSV file, your exported graph image, and your reflections to Dr. Jaina Agan ([jagan@uco.edu](mailto:jagan@uco.edu)) or Dr. Dani Kirsch ([danielle.kirsch@okstate.edu](mailto:danielle.kirsch@okstate.edu))  
+
+[setwd-img]: setwd.png "Set Working Directory"
+[github-download]: github-download.png "GitHub Download"

@@ -1,0 +1,79 @@
+---
+title: "Intro R Answer Key - Week 1"
+author: "Dr. Dani Kirsch & Dr. Jaina Agan"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+To give you an opportunity to continue practicing your R skills between now and the next workshop session, we have provided a new dataset for you to use, along with some practice problems.  
+
+Feel free to refer back to the code you wrote during the first workshop session. It's very common (and encouraged!) to recycle and modify code you and others have written.
+
+```{r packages, include = FALSE}
+library(ggplot2)
+```
+
+## Dataset Description
+
+`msleep` is a dataset that’s available in R as part of the `ggplot2` package, similar to the `complete_old` dataset we have been using from the `ratdat` package. The `msleep` dataset has information about different species of mammals and their sleep habits.  
+
+Write and execute the following code to read about where the dataset came from and what the variables are.
+
+```{r data-descr, message = FALSE}
+?msleep
+```
+
+## Make a Scatter Plot
+
+1. Create a scatter plot from the data that places `brainwt` (brain weight) on the x-axis and `sleep_total` on the y-axis.  
+2. Specify that the color of the points should vary based on the variable `vore`, which indicates the type of diet the animal has.  
+3. Change the transparency of the points to 0.8.  
+4. Transform the x-axis so it has a log10 scale using the `scale_x_log10` function.  
+
+**Reminders!**  
+
+- `geom_point` is the function used to tell ggplot2 to make a scatter plot  
+- `alpha =` is how we specify transparency
+
+The scatter plot you create should look similar to the following graph:
+
+```{r scatter, echo=TRUE, warning = FALSE, fig.alt = "A scatter plot comparing brain weight on the x-axis (using a log-10 scale) to hours sleeping on the y-axis. Color is used to distinguish between animal diets."}
+ggplot(data = msleep,
+       aes(x = brainwt,
+           y = sleep_total,
+           color = vore)) +
+  geom_point(alpha = 0.8) +
+  scale_x_log10() 
+```
+
+## Make a Boxplot
+
+1. Create a boxplot from the data that uses `vore` (diet) as the x variable and `awake` (time awake in hours) as the y variable.  
+2. Specify that the boxes should be filled with color based on the variable `vore` (diet)  
+3. **Optional Bonus**: You can change the fill color of the boxes in a similar way to how we changed the color scale during the workshop. We used `scale_viridis_d` to change the **color** scale during the workshop. There is a similar function called `scale_fill_viridis_d` that works very similarly but operates on the **fill** variable instead.  
+
+**Reminder!**  
+
+- `fill =` is how we specify fill color  
+
+The boxplot you create should look similar to the following graph:
+
+```{r box, echo=TRUE, warning = FALSE, fig.alt = "A boxplot comparing diet on the x-axis to hours spent awake on the y-axis. Color is used to distinguish between animal diets."}
+ggplot(data = msleep,
+       aes(x = vore,
+           y = awake,
+           fill = vore)) +
+  geom_boxplot() +
+  scale_fill_viridis_d()
+```
+
+## Reflections
+
+1. What was the most challenging aspect of this week’s workshop? Were you able to overcome it? If not, what assistance do you need to continue working through it?  
+2. What was the most rewarding aspect of this week's workshop?  
