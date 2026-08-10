@@ -10,7 +10,9 @@ This folder contains editable R Markdown files for each of the 3 practice proble
 
 ## Problems and Keys  
 
-This folder contains rendered HTML files for each of the 3 sets of practice problems and answer keys. Since the files are hosted on GitHub, the HTML files can be linked to directly, thus enabling them to be shared as a URL that opens up directly in a browser rather than as an attachment in an email. The HTML files are also the only export type that retains necessary accessibility elements such as alt text for images and graphs. If export to other files types is desired (e.g., PDF), alt text will need to be added manually for all images.   
+This folder contains rendered HTML files for each of the 3 sets of practice problems and answer keys. The HTML files are also the only export type that retains necessary accessibility elements such as alt text for images and graphs. If export to other files types is desired (e.g., PDF), alt text will need to be added manually for all images.  
+
+The HTML files can be linked to directly, thus enabling them to be shared as a URL that opens up directly in a browser rather than as an attachment in an email. However, to properly deploy the HTML files and link to them as an actual webpage, the repository needs to be configured as a GitHub Pages website, or the files need to be hosted on a different website.  
 
 ## Conference Presentations   
 
