@@ -14,4 +14,4 @@ This folder contains rendered HTML files for each of the 3 sets of practice prob
 
 ## Conference Presentations   
 
-We are presenting on this micro-credential integration with the "Introduction to R and RStudio" Carpentries workshop series at UCO's [21st Century Pedagogy Institute](https://www.uco.edu/academics/cettl/21CPI/) (21CPI) 2026 Collegium as well as at the 2026 [Southeast Data Librarian Symposium](https://se-datalibrarian.github.io/). The PowerPoint slides for these presentations are available in this repository. 
+We are presenting on this micro-credential integration with the "Introduction to R and RStudio" Carpentries workshop series at UCO's [21st Century Pedagogy Institute](https://www.uco.edu/academics/cettl/21CPI/) (21CPI) 2026 Collegium as well as at the 2026 [Southeast Data Librarian Symposium](https://se-datalibrarian.github.io/). The PowerPoint slides for these presentations are available in this folder. 
