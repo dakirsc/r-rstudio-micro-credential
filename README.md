@@ -14,6 +14,8 @@ This folder contains rendered HTML files for each of the 3 sets of practice prob
 
 The HTML files can be linked to directly, thus enabling them to be shared as a URL that opens up directly in a browser rather than as an attachment in an email. However, to properly deploy the HTML files and link to them as an actual webpage, the repository needs to be configured as a GitHub Pages website, or the files need to be hosted on a different website.  
 
+If you would like to open these HTML files as webpages, all you need to do is download the individual files from this folder and then open them up in your preferred web browser.  
+
 ## Conference Presentations   
 
 We are presenting on this micro-credential integration with the "Introduction to R and RStudio" Carpentries workshop series at UCO's [21st Century Pedagogy Institute](https://www.uco.edu/academics/cettl/21CPI/) (21CPI) 2026 Collegium as well as at the 2026 [Southeast Data Librarian Symposium](https://se-datalibrarian.github.io/). The PowerPoint slides for these presentations are available in this folder. 
